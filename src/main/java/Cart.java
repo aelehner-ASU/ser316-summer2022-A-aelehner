@@ -6,8 +6,8 @@ import java.util.List;
 public class Cart {
 
     protected int userAge;
-    public List<Product> cart;
-    public int cartStorage;
+    private List<Product> cart;
+    private int cartStorage;
 
     /**
      * Calculates the final cost after all savings and tax has been applied. Also checks
@@ -38,7 +38,7 @@ public class Cart {
         int subTotal = 0;
         int costAfterSavings = 0;
 
-        double produce_counter = 0;
+        double produceCounter = 0;
         int alcoholCounter = 0;
         int frozenFoodCounter = 0;
         int dairyCounter = 0;
@@ -48,11 +48,11 @@ public class Cart {
             costAfterSavings =costAfterSavings+cart.get(i).getCost();
 
             if (cart.get(i).getClass().toString() == Produce.class.toString()) {
-                produce_counter++;
+                produceCounter++;
 
-                if (produce_counter >= 3) {
+                if (produceCounter >= 3) {
                     costAfterSavings -= 1;
-                    produce_counter = 0;
+                    produceCounter = 0;
                 }
             }
             else if (cart.get(i).getClass().toString()==Alcohol.class.toString()) {
@@ -64,9 +64,6 @@ public class Cart {
             else if (cart.get(i).getClass().toString() == FrozenFood.class.toString()) {
                 frozenFoodCounter++;
             }
-            else if (cart.get(i).getClass().toString() == FrozenFood.class.toString())
-                dairyCounter++;
-
             if (alcoholCounter >= 1 && frozenFoodCounter >= 1) {
                  costAfterSavings = costAfterSavings + 3;
                  alcoholCounter--;
