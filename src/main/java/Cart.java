@@ -28,7 +28,9 @@ public class Cart {
      * @throws UnderAgeException
      */
     public double calcCost() throws UnderAgeException {
-        return 0; //implement me, will be important for assignment 4 (nothing to do here for assignment 3)
+    	double total = Amount_saved();
+    	total += getTax(total, "AZ");
+    	return total;
     }
 
     // calculates how much was saved in the current shopping cart based on the deals, returns the saved amount
@@ -38,42 +40,36 @@ public class Cart {
         int subTotal = 0;
         int costAfterSavings = 0;
 
-        double produce_counter = 0;
+        double produceCounter = 0;
         int alcoholCounter = 0;
         int frozenFoodCounter = 0;
-        int dairyCounter = 0;
 
         for(int i = 0; i < cart.size(); i++) {
             subTotal += cart.get(i).getCost();
-            costAfterSavings =costAfterSavings+cart.get(i).getCost();
 
-            if (cart.get(i).getClass().toString() == Produce.class.toString()) {
-                produce_counter++;
+            if (cart.get(i).getClass().toString().equals(Produce.class.toString())) {
+                produceCounter++;
 
-                if (produce_counter >= 3) {
-                    costAfterSavings -= 1;
-                    produce_counter = 0;
+                if (produceCounter >= 3) {
+                    costAfterSavings += 1;
+                    produceCounter = 0;
                 }
             }
-            else if (cart.get(i).getClass().toString()==Alcohol.class.toString()) {
-                alcoholCounter++;
+            if (cart.get(i).getClass().toString().equals(Alcohol.class.toString())) {
                 if (userAge < 21) {
                     throw new UnderAgeException("The User is not of age to purchase alcohol!");
                 }
+                else alcoholCounter++;
             }
-            else if (cart.get(i).getClass().toString() == FrozenFood.class.toString()) {
+            if (cart.get(i).getClass().toString().equals(FrozenFood.class.toString())) {
                 frozenFoodCounter++;
             }
-            else if (cart.get(i).getClass().toString() == FrozenFood.class.toString())
-                dairyCounter++;
-
             if (alcoholCounter >= 1 && frozenFoodCounter >= 1) {
                  costAfterSavings = costAfterSavings + 3;
                  alcoholCounter--;
                  frozenFoodCounter--;
             }
         }
-
         return subTotal - costAfterSavings;
     }
 
@@ -89,6 +85,7 @@ public class Cart {
                 break;
             case "NY":
                 newTotal = totalBT * .1;
+                break;
             case "CO":
                 newTotal = totalBT * .07;
                 break;
