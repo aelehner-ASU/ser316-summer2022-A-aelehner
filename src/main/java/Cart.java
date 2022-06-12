@@ -126,6 +126,7 @@ public class Cart {
                 break;
             case "NY":
                 newTotal = totalBT * .1;
+                break; //Added break after case "NY"
             case "CO":
                 newTotal = totalBT * .07;
                 break;
