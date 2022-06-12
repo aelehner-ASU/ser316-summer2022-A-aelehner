@@ -82,25 +82,26 @@ public class Cart {
         for(int i = 0; i < cart.size(); i++) {
             subTotal += cart.get(i).getCost();
             //Deleted adding all costs to cost after savings
-
-            if (cart.get(i).getClass().toString() == Produce.class.toString()) {
+            
+            //Changed all "string == string" to "string.equals(string)"
+            if (cart.get(i).getClass().toString().equals(Produce.class.toString())) {
                 produce_counter++;
 
                 if (produce_counter >= 3) {
-                    costAfterSavings += 1;
+                    costAfterSavings += 1; //Increase instead of decrease
                     produce_counter = 0;
                 }
             }
-            else if (cart.get(i).getClass().toString()==Alcohol.class.toString()) {
+            else if (cart.get(i).getClass().toString().equals(Alcohol.class.toString())) {
                 alcoholCounter++;
                 if (userAge < 21) {
                     throw new UnderAgeException("The User is not of age to purchase alcohol!");
                 }
             }
-            else if (cart.get(i).getClass().toString() == FrozenFood.class.toString()) {
+            else if (cart.get(i).getClass().toString().equals(FrozenFood.class.toString())) {
                 frozenFoodCounter++;
             }
-            else if (cart.get(i).getClass().toString() == FrozenFood.class.toString())
+            else if (cart.get(i).getClass().toString().equals(FrozenFood.class.toString()))
                 dairyCounter++;
 
             if (alcoholCounter >= 1 && frozenFoodCounter >= 1) {
