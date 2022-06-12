@@ -81,13 +81,13 @@ public class Cart {
 
         for(int i = 0; i < cart.size(); i++) {
             subTotal += cart.get(i).getCost();
-            costAfterSavings =costAfterSavings; //Deleted adding all costs to cost after savings
+            //Deleted adding all costs to cost after savings
 
             if (cart.get(i).getClass().toString() == Produce.class.toString()) {
                 produce_counter++;
 
                 if (produce_counter >= 3) {
-                    costAfterSavings -= 1;
+                    costAfterSavings += 1;
                     produce_counter = 0;
                 }
             }
